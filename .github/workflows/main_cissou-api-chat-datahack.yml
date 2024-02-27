@@ -41,7 +41,7 @@ jobs:
           name: python-app
           path: |
             release.zip
-            venv/
+            !venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -61,10 +61,19 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+
       - name: Log in to Azure CLI using service principal
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7760F9709E144B83ACFBCFEFAAF25255 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A967ABF5E7C4471C90C864CC24C5FD4F }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_34069D1AF74740B0BE68E92677CD9845 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
@@ -72,3 +81,4 @@ jobs:
         with:
           app-name: 'cissou-api-chat-datahack'
           slot-name: 'Production'
+          

@@ -11,4 +11,3 @@ Flask
 requests
 jsonify
 gunicorn
-fcntl
