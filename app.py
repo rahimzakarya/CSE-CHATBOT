@@ -9,4 +9,7 @@ def chat():
     message = {"answer": response}
     return jsonify(message)
 
+
+if __name__ == "__main__":
+    app.run()
 # waitress-serve --listen=127.0.0.1:8000 app:app
