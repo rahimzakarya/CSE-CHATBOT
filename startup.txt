@@ -1,1 +1,1 @@
-gunicorn --bind=0.0.0.0 --timeout 600 --chdir app:app
+waitress-serve --listen=127.0.0.1:8000 app:app
