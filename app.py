@@ -9,6 +9,10 @@ def chat():
     message = {"answer": response}
     return jsonify(message)
 
+# Add a route for a hello world message
+@app.route("/")
+def hello_world():
+    return "Hello, World!"
 
 if __name__ == "__main__":
     app.run()
